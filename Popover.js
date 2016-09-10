@@ -35,6 +35,7 @@ function Rect(x, y, width, height) {
 
 var Popover = React.createClass({
   propTypes: {
+    style: View.propTypes.style,
     isVisible: PropTypes.bool,
     onClose: PropTypes.func,
   },
@@ -324,6 +325,8 @@ var Popover = React.createClass({
     }
   },
   render() {
+    const { style } = this.props;
+
     if (!this.props.isVisible && !this.state.isTransitioning) {
         return null;
     }
@@ -346,7 +349,7 @@ var Popover = React.createClass({
       <TouchableWithoutFeedback onPress={this.props.onClose}>
         <View style={[styles.container, contentSizeAvailable && styles.containerVisible ]}>
           <Animated.View style={[styles.background, ...extendedStyles.background]}/>
-          <Animated.View style={[styles.popover, {
+          <Animated.View style={[styles.popover, style, {
             top: popoverOrigin.y,
             left: popoverOrigin.x,
             }, ...extendedStyles.popover]}>
@@ -386,10 +389,10 @@ var styles = StyleSheet.create({
   popover: {
     backgroundColor: 'transparent',
     position: 'absolute',
-    shadowColor: 'black',
-    shadowOffset: {width: 0, height: 2},
-    shadowRadius: 2,
-    shadowOpacity: 0.8,
+    // shadowColor: 'black',
+    // shadowOffset: {width: 0, height: 2},
+    // shadowRadius: 2,
+    // shadowOpacity: 0.8,
   },
   content: {
     borderRadius: 3,
